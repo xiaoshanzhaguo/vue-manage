@@ -17,8 +17,8 @@ export default {
   name: "Home",
   components: {CommonAside},
   data() {
-    return {};
-  },
+    return {}
+  }
 };
 </script>
 
