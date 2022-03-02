@@ -4,7 +4,9 @@
       <common-aside/>
     </el-aside>
     <el-container>
-      <el-header>Header</el-header>
+      <el-header>
+        <common-header/>
+      </el-header>
       <el-main>
         <!-- 这里展示嵌套路由的组件！！！ -->
         <router-view></router-view>
@@ -15,10 +17,11 @@
 
 <script>
 import CommonAside from '../src/components/CommonAside.vue'
+import CommonHeader from '../src/components/CommonHeader.vue'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Main",
-  components: {CommonAside},
+  components: { CommonAside, CommonHeader },
   data() {
     return {}
   }
