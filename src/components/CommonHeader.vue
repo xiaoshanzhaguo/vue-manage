@@ -1,7 +1,12 @@
 <template>
   <header>
     <div class="l-content">
-      <el-button plain icon="el-icon-menu" size="mini"></el-button>
+      <el-button
+        @click="handleMenu"
+        plain
+        icon="el-icon-menu"
+        size="mini"
+      ></el-button>
       <!-- 面包屑 -->
       <h3 style="color: #fff">首页</h3>
     </div>
@@ -28,6 +33,12 @@ export default {
       // 引入的形式——require
       userImg: require("../assets/images/user.jpg"),
     };
+  },
+  methods: {
+    handleMenu() {
+      //  只能通过mutation的方式去改变store中的state
+      this.$store.commit('collapseMenu');
+    },
   },
 };
 </script>
