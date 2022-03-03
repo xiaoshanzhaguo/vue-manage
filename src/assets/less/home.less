@@ -1,59 +1,139 @@
 .home {
+
+    // position: relative;
     // background-color: #ccc;
+    .left {
+        .el-card:first-child {
+            width: 600px;
+            height: 280px;
 
-    .el-card {
-        width: 500px;
-        height: 270px;
+            .user {
+                position: relative;
 
-        .user {
-            position: relative;
-
-            img {
-                width: 138px;
-                height: 138px;
-                border-radius: 50%;
-            }
-
-            .userinfo {
-                position: absolute;
-                top: 40px;
-                left: 170px;
-
-                .name {
-                    color: #29312c;
-                    font-size: 30px;
+                img {
+                    width: 138px;
+                    height: 138px;
+                    border-radius: 50%;
                 }
 
-                .access {
-                    margin-top: 10px;
-                    color: #b0b0b0;
-                    font-size: 16px;
-                }
-            }
-        }
+                .userinfo {
+                    position: absolute;
+                    top: 40px;
+                    left: 170px;
 
-        hr {
-            display: block;
-            height: 1px;
-            border: 0;
-            border-top: 2px solid #ccc;
-        }
+                    .name {
+                        color: #29312c;
+                        font-size: 30px;
+                    }
 
-        .login-info {
-            margin-top: 20px;
-
-            p {
-                color: #ccc;
-                font-size: 14px;
-
-                span {
-                    margin-left: 65px;
-                    color: #afb0b0;
+                    .access {
+                        margin-top: 10px;
+                        color: #b0b0b0;
+                        font-size: 16px;
+                    }
                 }
             }
 
-            p:last-child {
+            hr {
+                display: block;
+                height: 1px;
+                border: 0;
+                border-top: 2px solid #ccc;
+            }
+
+            .login-info {
                 margin-top: 20px;
+
+                p {
+                    color: #ccc;
+                    font-size: 14px;
+
+                    span {
+                        margin-left: 65px;
+                        color: #afb0b0;
+                    }
+                }
+
+                p:last-child {
+                    margin-top: 20px;
+                }
+            }
+        }
+
+        .el-card:last-child {
+            width: 600px;
+        }
+    }
+
+    .num {
+        margin: 20px 0 0 60px;
+        // position: absolute;
+        // display: flex;
+        // justify-content: start;
+        // flex-wrap: wrap;
+        width: 1000px;
+
+        .el-card {
+            // flex-grow: 0;
+            display: inline-block;
+            margin: 0 0 5px 20px;
+            // background-color: pink;
+            width: 310px;
+            height: 70px;
+
+            .icon {
+                flex-basis: 70px;
+                flex-shrink: 0;
+                height: 70px;
+            }
+
+            [class*=" el-icon-"],
+            [class^="el-icon-"] {
+                color: #fff;
+                font-size: 25px;
+                text-align: center;
+                line-height: 70px;
+            }
+
+            .detail {
+                position: relative;
+
+                .num {
+                    position: absolute;
+                    font-size: 29px;
+                    top: -4px;
+                    left: -20px;
+                }
+
+                .txt {
+                    position: absolute;
+                    writing-mode: vertical-lr;
+                    top: 50px;
+                    left: 48px;
+                    font-size: 13px;
+                    color: #ccc;
+                }
+            }
+        }
+    }
+
+    .totalGraph {
+        &>.el-card {
+            margin: 26px 0 0 70px;
+        }
+
+        .graph {
+            .el-card {
+                width: 1000px;
+                display: inline-block;
+                width: 480px;
+                margin-top: 27px;
+            }
+            .el-card:first-child {
+                margin-left: 70px;
+            }
+            .el-card:last-child {
+                margin-left: 40px;
             }
         }
     }
