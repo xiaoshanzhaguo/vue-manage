@@ -6,6 +6,7 @@ import './assets/less/index.less'
 
 import router from '../router'
 import store from '../store'
+import http from 'axios'
 
 Vue.config.productionTip = false
 Vue.use(Button)
@@ -26,6 +27,9 @@ Vue.use(Col)
 Vue.use(Card)
 Vue.use(Table)
 Vue.use(TableColumn)
+
+// axios不是插件，它想在全局中使用，只能将它绑定在vue的prototype上，那么我们就可以在页面上写请求。
+Vue.prototype.$http = http
 
 new Vue({
   store,
