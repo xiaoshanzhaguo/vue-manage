@@ -60,51 +60,14 @@
 </template>
 
 <script>
-import { getMenu } from '../../api/data'
+import { getData } from '../../api/data'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "home",
   data() {
     return {
       userImg: require("../../src/assets/images/user.jpg"),
-      tableData: [
-        {
-          name: "oppo",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "vivo",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "苹果",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "小米",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "三星",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "魅族",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-      ],
+      tableData: [],
       tableLabel: {
         name: "课程",
         todayBuy: "今日购买",
@@ -152,9 +115,17 @@ export default {
     };
   },
   mounted() {
-    getMenu().then(res => {
+    getData().then(res => {
+      // 拿到res.data数据，我们将data数据下面的code和data进行解构
+      const { code, data } = res.data
+      /* 判断当code为20000时，也就是正常接口返回的时候，我们就可以拿到data的数据。
+      注意我们这里可以从mock里面之际将这里的tableData数据取出来，赋值给当前的tableData。
+      并将上面的tableData数据可以给一个空数组。 */
+      if (code === 20000) {
+        this.tableData = data.tableData
+      }
       console.log(res); // 调用res，否则会报错
     })
   }
-};
+}
 </script>

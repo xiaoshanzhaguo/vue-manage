@@ -11,3 +11,11 @@ export const getMenu = (param) => {
         data: param
     })
 }
+
+export const getData = () => {
+    return axios.request({
+        // 这个url就是拦截器mock中的url
+        url: '/home/getData'
+        // 默认是一个get请求
+    })
+}
