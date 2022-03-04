@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import { getMenu } from '../../api/data'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "home",
@@ -151,13 +152,9 @@ export default {
     };
   },
   mounted() {
-    this.$http.get('/user?ID=12345')
-    .then(function (response) {
-      console.log(response);
+    getMenu().then(res => {
+      console.log(res); // 调用res，否则会报错
     })
-    .catch(function (error) {
-      console.log(error);
-    });
   }
 };
 </script>
