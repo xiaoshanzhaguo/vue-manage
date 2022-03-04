@@ -54,7 +54,9 @@
           <div style="height: 280px;" ref="echarts"></div>
         </el-card>
         <div class="graph">
-          <el-card style="height: 260px"></el-card>
+          <el-card style="height: 260px">
+            <div style="height: 280px;" ref="userEcharts"></div>
+          </el-card>
           <el-card style="height: 260px"></el-card>
         </div>
       </div>
@@ -164,6 +166,66 @@ export default {
         // 绘图
         E.setOption(option)
       }
+
+      // 用户图
+      // 下面用一个变量来接收配置
+      const userOption = {
+        legend: {
+          // 图例文字颜色
+          textStyle: {
+            color: "#333",
+          },
+        },
+        grid: {
+          left: "20%"
+        },
+        // 提示框
+        tooltip: {
+          trigger: "axis",
+        },
+        xAxis: {
+          type: "category", // 类目轴
+          data: data.userData.map(item => item.date), // 拿到data里表示x轴的数据，用map去遍历，使用es6箭头函数，这里就能return item.date。
+          axisLine: {
+            lineStyle: {
+              color: "#1b3a3",
+            },
+          },
+          axisLabel: {
+            interval: 0,
+            color: "#333",
+          },
+        },
+        yAxis: [
+          {
+            type: "value",
+            axisLine: {
+              lineStyle: {
+                color: "#17b3a3",
+              },
+            },
+          },
+        ],
+        color: ["#2ec7c9", "#b6a2de"],
+        series: [
+          // 有两个图例，就添加两个对象
+          {
+            name: '新增用户',
+            data: data.userData.map(item => item.new), // 同样要遍历数据
+            type: 'bar'
+          },
+          {
+            name: '活跃用户',
+            data: data.userData.map(item => item.active), // 同样要遍历数据
+            type: 'bar'
+          }
+        ],
+      }
+
+      // 配置完后，拿到echarts的实例，并进行画图
+      const U = echarts.init(this.$refs.userEcharts) // 用遍历来接收一下
+      // 调用.option将配置传入进来
+      U.setOption(userOption)
       console.log(res); // 调用res，否则会报错
     })
   }
