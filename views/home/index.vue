@@ -49,7 +49,10 @@
         </el-card>
       </div>
       <div class="totalGraph">
-        <el-card style="height: 280px; width: 1000px"></el-card>
+        <el-card style="height: 280px; width: 1000px">
+          <!-- ref用于后面获取当前的dom节点 -->
+          <div style="height: 280px;" ref="echarts"></div>
+        </el-card>
         <div class="graph">
           <el-card style="height: 260px"></el-card>
           <el-card style="height: 260px"></el-card>
@@ -61,6 +64,9 @@
 
 <script>
 import { getData } from '../../api/data'
+//  echarts5的引入方式
+import * as echarts from 'echarts'
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "home",
@@ -123,6 +129,40 @@ export default {
       并将上面的tableData数据可以给一个空数组。 */
       if (code === 20000) {
         this.tableData = data.tableData
+        // 接口请求完成后，处理接口拿到的数据
+        const order = data.orderData
+        // 用于接收数据
+        const xData = order.date
+        // 处理数据，先取出key值，keyArray就是key值的集合
+        const keyArray =  Object.keys(order.data[0])
+        // 拿到key值后，组装series数据
+        const series = []
+        // 直接遍历key数组
+        keyArray.forEach(key => {
+          // 遍历时往series数组中添加数据
+          series.push({
+            name: key, // serires里的name就是图例，对应这里的key值
+            /* data对应图例的数据，这里要取对应图例的数据，通过这里的代码遍历数据。
+            拿到其中的每一项，将每一项所对应的key值的值进行返回 */
+            data: order.data.map(item => item[key]),
+            type: 'line' // 折线图
+          })
+        })
+        // 组装echarts的option
+        const option = {
+          xAxis: {
+            data: xData
+          },
+          yAxis: {},
+          legend: {
+            data: keyArray
+          },
+          series
+        }
+        // 初始化echarts。下面传入当前的dom节点，在之前的div中给了ref="xxx"，这里拿到它的实例并用E来接收
+        const E = echarts.init(this.$refs.echarts)
+        // 绘图
+        E.setOption(option)
       }
       console.log(res); // 调用res，否则会报错
     })
