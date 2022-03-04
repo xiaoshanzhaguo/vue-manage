@@ -51,13 +51,15 @@
       <div class="totalGraph">
         <el-card style="height: 280px; width: 1000px">
           <!-- ref用于后面获取当前的dom节点 -->
-          <div style="height: 280px;" ref="echarts"></div>
+          <div style="height: 280px" ref="echarts"></div>
         </el-card>
         <div class="graph">
-          <el-card style="height: 260px">
-            <div style="height: 280px;" ref="userEcharts"></div>
+          <el-card>
+            <div style="height: 280px" ref="userEcharts"></div>
           </el-card>
-          <el-card style="height: 260px"></el-card>
+          <el-card>
+            <div style="height: 280px" ref="videoEcharts"></div>
+          </el-card>
         </div>
       </div>
     </el-col>
@@ -221,11 +223,37 @@ export default {
           }
         ],
       }
-
       // 配置完后，拿到echarts的实例，并进行画图
       const U = echarts.init(this.$refs.userEcharts) // 用遍历来接收一下
       // 调用.option将配置传入进来
       U.setOption(userOption)
+
+      // 饼图
+      const videoOption = {
+        tooltip: {
+          trigger: "item",
+        },
+        color: [
+          "#0f78f4",
+          "#dd536b",
+          "#9462e5",
+          "#a6a6a6",
+          "#e1bb22",
+          "#39c362",
+          "#3ed1cf",
+        ],
+        series: [
+          // 给series添加对应的数据。对于饼图而言，可以直接把data拿过来。
+          {
+            data: data.videoData,
+            type: 'pie'
+          }
+        ],
+      }
+      // 一样的来获取实例
+      const V = echarts.init(this.$refs.videoEcharts)
+      V.setOption(videoOption)
+
       console.log(res); // 调用res，否则会报错
     })
   }
