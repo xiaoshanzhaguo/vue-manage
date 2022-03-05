@@ -190,7 +190,7 @@ export default {
           data: data.userData.map(item => item.date), // 拿到data里表示x轴的数据，用map去遍历，使用es6箭头函数，这里就能return item.date。
           axisLine: {
             lineStyle: {
-              color: "#1b3a3",
+              color: "#17b3a3",
             },
           },
           axisLabel: {
