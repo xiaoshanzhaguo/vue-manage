@@ -31,11 +31,13 @@ export default {
   // 在初始化之前，要对数据进行监听
   watch: {
     // 这里需要对传入的chartData进行监听(原因是在数据改变的时候，表格应重新绘制)
-    handler: function () {
-      this.initChart()
-    },
+    chartData: {
+      handler: function () {
+        this.initChart()
+      },
     // 在首次对数据进行监听时，也需要触发，加一个属性
     deep: true
+    }
   },
   // 对echarts进行初始化的逻辑
   methods: {
