@@ -28,7 +28,7 @@
         v-for="(subItem, subIndex) in item.children"
         :key="subItem.path"
       >
-        <el-menu-item :index="subIndex">{{ subItem.label }}</el-menu-item>
+        <el-menu-item @click="clickMenu(subItem)" :index="subIndex">{{ subItem.label }}</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
   </el-menu>
@@ -114,6 +114,7 @@ export default {
       this.$router.push({
         name: item.name,  // 只写了这个不能跳转，因为路由里没定义。
       });
+      this.$store.commit('selectMenu', item)
     }
   },
   computed: {
