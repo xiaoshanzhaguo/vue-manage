@@ -198,7 +198,6 @@ export default {
         // const E = echarts.init(this.$refs.echarts)
         // // 绘图
         // E.setOption(option)
-      }
 
       // 用户图
       // 下面用一个变量来接收配置
@@ -312,7 +311,7 @@ export default {
       // // 一样的来获取实例
       // const V = echarts.init(this.$refs.videoEcharts)
       // V.setOption(videoOption)
-
+      }
       console.log(res); // 调用res，否则会报错
     })
   }
