@@ -8,7 +8,15 @@
         size="mini"
       ></el-button>
       <!-- 面包屑 -->
-      <h3 style="color: #fff">首页</h3>
+      <!-- <h3 style="color: #fff">首页</h3> -->
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item
+          v-for="item in tags"
+          :key="item.path"
+          :to="{ path: item.path }"
+          >{{ item.label }}</el-breadcrumb-item
+        >
+      </el-breadcrumb>
     </div>
     <div class="r-content">
       <el-dropdown trigger="click" szie="mini">
@@ -26,6 +34,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "CommonHeader",
   data() {
@@ -37,8 +46,13 @@ export default {
   methods: {
     handleMenu() {
       //  只能通过mutation的方式去改变store中的state
-      this.$store.commit('collapseMenu');
+      this.$store.commit("collapseMenu");
     },
+  },
+  computed: {
+    ...mapState({
+      tags: (state) => state.tab.tabsList,
+    }),
   },
 };
 </script>
@@ -56,6 +70,14 @@ header {
   align-items: center;
   .el-button {
     margin-right: 20px;
+  }
+
+  .el-breadcrumb__item:last-child /deep/ .el-breadcrumb__inner {
+    color: #dfdad4;
+  }
+
+  .el-breadcrumb__item /deep/ .el-breadcrumb__inner {
+    color: #4a4c4c;
   }
 }
 

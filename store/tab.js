@@ -3,7 +3,7 @@ export default {
     state: {
         // 定义一个管理是否展开的变量，默认展开的状态
         isCollapse: false,
-        tabList: [
+        tabsList: [
             // 默认值(初始数据)为首页
             {
                 path: '/',
@@ -28,10 +28,10 @@ export default {
                 state.currentMenu = val
                 /* 另外还需要拿到当前选中项的索引，判断它在state中存在否——通过findIndex的方法判断 
                 item下的name与传入数据中菜单的name是否相等，如果相等就意味着存在。 */
-                const result = state.tabList.findIndex(item => item.name === val.name)
-                if (result !== -1) {
+                const result = state.tabsList.findIndex(item => item.name === val.name)
+                if (result === -1) {
                     // result不等于-1，则将数据添加进去。
-                    state.tabList.push(val)
+                    state.tabsList.push(val)
                 }
             } else {
                 // 如果当前选中的菜单是首页，需要将currentMenu当前选中的标识重置。
