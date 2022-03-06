@@ -37,6 +37,13 @@ export default {
                 // 如果当前选中的菜单是首页，需要将currentMenu当前选中的标识重置。
                 state.currentMenu = null
             }
+        },
+        // 3. 还要将当前数据源中的数据删除掉，只能调用mutation来修改。
+        closeTag(state, val) {
+            // 找到当前的数据源，将它从数据源中删除
+            // 先找到当前点击的数据
+            const result = state.tabsList.findIndex(item => item.name === val.name)
+            state.tabsList.splice(result, 1) // 调用splice方法进行删除
         }
     }
 }
