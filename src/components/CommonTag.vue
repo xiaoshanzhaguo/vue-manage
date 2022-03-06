@@ -70,7 +70,7 @@ export default {
             } else {
                 // 是中间，向右跳转
                 this.$router.push({
-                    name: this.tags[index + 1].name
+                    name: this.tags[index].name
                 })
             }
             // 3. 还要将当前数据源中的数据删除掉，只能调用mutation来修改。
