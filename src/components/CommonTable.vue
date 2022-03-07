@@ -21,8 +21,7 @@
       <!-- 当前的操作列 -->
       <el-table-column label="操作" min-width="180">
         <el-button size="mini" @click="handleEdit">编辑</el-button>
-        <el-button size="mini" type="danger" @click="handleDelete">编辑</el-button>
-        <el-button></el-button>
+        <el-button size="mini" type="danger" @click="handleDelete">删除</el-button>
       </el-table-column>
     </el-table>
 
@@ -43,8 +42,8 @@
 export default {
   name: "CommonTable",
   props: {
-    tableData: Array,
-    tableLabel: Array,
+    tableData: Array,  // table数据
+    tableLabel: Array,  // table列的数据
     config: Object
   },
   data() {
@@ -53,14 +52,15 @@ export default {
     };
   },
   methods: {
-    handleEdit() {
-
+    handleEdit(row) {
+      // 通知父组件我们已经触发了事件，并且将数据传递到父组件中
+      this.$emit('edit', row)
     },
-    handleDelete() {
-
+    handleDelete(row) {
+      this.$emit('del', row)
     },
-    changePage() {
-
+    changePage(page) {
+      this.$emit('changePage', page)
     }
   }
 };

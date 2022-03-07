@@ -14,8 +14,15 @@ export const getMenu = (param) => {
 
 export const getData = () => {
     return axios.request({
-        // 这个url就是拦截器mock中的url
-        url: '/home/getData'
-        // 默认是一个get请求
+        url: '/home/getData', // 这个url就是拦截器mock中的url
+        method: 'get' // 默认是一个get请求
+    })
+}
+
+export const getUser = (params) => {
+    return axios.request({
+        url: '/user/getUser', // 拦截器部分应该和接口调用一样，不要写错！！！
+        method: 'get',  // 请求类型
+        data: params  // 将参数传递过去
     })
 }
