@@ -1,3 +1,4 @@
+/* eslint-disable vue/no-mutating-props */
 <template>
   <!-- 2. 拿到传入组件的数据后，接下来对数据进行渲染
 通过ref拿到当前form的实例；model中将传入的form数据给它，与element-ui的form进行双向绑定；
@@ -14,23 +15,23 @@ inline表示form的布局是单行或上下排列。 -->
       <el-input
         v-if="item.type === 'input'"
         :placeholder="'请输入' + item.label"
-        v-model="form[item.model]"
+        v-model="localForm[item.model]"
       ></el-input>
       <el-switch
         v-if="item.type === 'switch'"
-        v-model="form[item.model]"
+        v-model="localForm[item.model]"
       ></el-switch>
       <el-date-picker
         v-if="item.type === 'date'"
         type="date"
         value-format="yyyy-MM-dd"
         placeholder="请选择日期"
-        v-model="form[item.model]"
+        v-model="localForm[item.model]"
       ></el-date-picker>
       <el-select
         v-if="item.type === 'select'"
         placeholder="请选择"
-        v-model="form[item.model]"
+        v-model="localForm[item.model]"
       >
         <!-- 还需要渲染出它对应的下拉。这个下拉值会在传入的数据中定义一个opt属性，
 			通过对这个属性的遍历来渲染出select下拉的内容。label表示下拉的名称，value是下拉选择之后具体的枚举值。
@@ -55,14 +56,16 @@ inline表示form的布局是单行或上下排列。 -->
 export default {
   name: "CommonForm",
   /* 定义props用于接收属性，接收form相关的配置和form的数据（form的数据应该由父组件传递进来，
-    并且我们接收到数据进行双向绑定），并且还接收表单的布局 */
+    并且我们接收到数据(与CommonForm组件)进行双向绑定），并且还接收表单的布局inline */
   props: {
     formLabel: Array,
     form: Object,
     inline: Boolean,
   },
   data() {
-    return {};
+    return {
+      localForm: this.form
+    };
   },
 };
 </script>

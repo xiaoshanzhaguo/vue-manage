@@ -28,7 +28,8 @@ import {
   Select,
   Switch,
   DatePicker,
-  Option
+  Option,
+  Dialog
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/less/index.less'
@@ -67,6 +68,7 @@ Vue.use(Select)
 Vue.use(Switch)
 Vue.use(DatePicker)
 Vue.use(Option)
+Vue.use(Dialog)
 
 // axios不是插件，它想在全局中使用，只能将它绑定在vue的prototype上，那么我们就可以在页面上写请求。
 Vue.prototype.$http = http
