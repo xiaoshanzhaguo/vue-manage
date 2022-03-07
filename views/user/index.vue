@@ -109,7 +109,29 @@ export default {
     };
   },
   methods: {
-    confirm() {},
+    confirm() {
+      // 首先要判断有两种情况
+      // 先判断弹窗的状态是新增还是编辑
+      if (this.operateType === 'edit') {
+        /* 调用axios的post方法，调用相关接口（这里的数据是通过mock来模拟，老师之前在Mock中引入了数据。），
+        第二个参数——form数据。 */
+        this.$http.post('/user/edit', this.operateForm).then((res) => {
+          console.log(res);
+          // 调用.then，拿到接口返回的数据，接下来将弹窗关闭，并将table表格数据更新
+          this.isShow = false
+        })
+      } else {
+        // 新增逻辑
+        this.$http.post('/user/add', this.operateForm).then((res) => {
+          console.log(res);
+          this.isShow = false  
+          /* 然后去api/data.js中定义接口。我们现在可以不需要定义，因为这里直接调用$http.post接口欧。
+          那就可以直接在mock.js里面进行拦截。通过对接口的拦截实现对数据的模拟。 
+          然后就可以打开页面查看了。老师测试后发现报404的错误，因为请求没有被拦截到。因为mock.js里的地址多写了一个api]
+          修改后可以看到接口已经被拦截，并且这里打印了接口的数据，数据里返回的就是createUser的响应地址。 */
+        })
+      }
+    },
     addUser() {
       // 6. 点击新增时，弹框
       this.isShow = true;
@@ -127,3 +149,11 @@ export default {
   },
 };
 </script>
+
+<style lang="less" scoped>
+.manage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>
