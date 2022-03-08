@@ -43,6 +43,7 @@
 
 <script>
 import Mock from 'mockjs'
+import { getMenu } from '../../api/data';
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Login",
@@ -65,6 +66,13 @@ export default {
   },
   methods: {
     login() {
+      getMenu(this.form).then(res => {
+        if (res.data.code === 20000) {
+          // 如果成功，需要将接口返回的token拿到，然后给它设置进去。同时需要给不同的账号配置上不同的菜单权限。最后进行路由跳转。
+        } else {
+          this.$message.warning(res.data.message)
+        }
+      })
       // 在登录时将token设置进去。由于我们这里没有后端，所以token就自己模拟一下，用前端的mock来生成(先引入mock)
       const token = Mock.random.guid() // 通过调用这个函数就可以生成一个随机数
       // 假如我们调用上面的点击登录后，登录成功要拿到token，接下来要进行设置。
