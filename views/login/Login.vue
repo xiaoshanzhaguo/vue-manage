@@ -66,10 +66,13 @@ export default {
   },
   methods: {
     login() {
+      // 调用api，需要将账号和密码传入(储存在form中)。调用接口的时候会得到一个回调函数。res就是接口的返回。
       getMenu(this.form).then(res => {
+        // 判断res里的code，如果接口是正常的，状态码为20000
         if (res.data.code === 20000) {
           // 如果成功，需要将接口返回的token拿到，然后给它设置进去。同时需要给不同的账号配置上不同的菜单权限。最后进行路由跳转。
         } else {
+          // 否则对异常进行抛出
           this.$message.warning(res.data.message)
         }
       })
