@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import Mock from 'mockjs'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Login",
@@ -63,7 +64,14 @@ export default {
     };
   },
   methods: {
-    login() {},
+    login() {
+      // 在登录时将token设置进去。由于我们这里没有后端，所以token就自己模拟一下，用前端的mock来生成(先引入mock)
+      const token = Mock.random.guid() // 通过调用这个函数就可以生成一个随机数
+      // 假如我们调用上面的点击登录后，登录成功要拿到token，接下来要进行设置。
+      this.$store.commit('setToken', token)
+      // 接下来进行页面跳转
+      this.$router.push( { name: 'home' })
+    },
   },
 };
 </script>
