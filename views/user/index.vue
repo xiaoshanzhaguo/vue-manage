@@ -167,6 +167,10 @@ export default {
           console.log(res);
           // 调用.then，拿到接口返回的数据，接下来将弹窗关闭，并将table表格数据更新
           this.isShow = false;
+          this.$message({
+            type: "success",
+            message: "编辑成功",
+          });
           this.getList();
         });
       } else {
@@ -179,6 +183,10 @@ export default {
           然后就可以打开页面查看了。老师测试后发现报404的错误，因为请求没有被拦截到。因为mock.js里的地址多写了一个api]
           修改后可以看到接口已经被拦截，并且这里打印了接口的数据，数据里返回的就是createUser的响应地址。 */
 
+          this.$message({
+            type: "success",
+            message: "新增成功",
+          });
           this.getList();
         });
       }
@@ -197,10 +205,10 @@ export default {
       };
     },
     editUser(row) {
-      // console.log(row);
       this.operateType = "edit";
       this.isShow = true;
       this.operateForm = row; // 赋值当前的数据，实现回显当前的数据。operateForm的数据还会传到CommonForm的组件中
+      console.log(this.operateForm);
       this.getList();
     },
     delUser(row) {

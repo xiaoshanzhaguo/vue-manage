@@ -54,6 +54,15 @@ inline表示form的布局是单行或上下排列。 -->
 // 1. 在el-form中定义表单域中的相对组件
 export default {
   name: "CommonForm",
+  watch: {
+    form: {
+      handler(val) {
+        this.localForm =val
+      },
+      immediate: true,
+      deep: true,
+    },
+  },
   /* 定义props用于接收属性，接收form相关的配置和form的数据（form的数据应该由父组件传递进来，
     并且我们接收到数据(与CommonForm组件)进行双向绑定），并且还接收表单的布局inline */
   props: {
@@ -63,7 +72,7 @@ export default {
   },
   data() {
     return {
-      localForm: this.form
+      localForm: this.form,
     };
   },
 };
