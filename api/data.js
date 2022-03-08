@@ -23,6 +23,6 @@ export const getUser = (params) => {
     return axios.request({
         url: '/user/getUser', // 拦截器部分应该和接口调用一样，不要写错！！！
         method: 'get',  // 请求类型
-        data: params  // 将参数传递过去
+        params  // 将参数传递过去
     })
 }

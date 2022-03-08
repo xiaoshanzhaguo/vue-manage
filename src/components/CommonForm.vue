@@ -1,4 +1,3 @@
-/* eslint-disable vue/no-mutating-props */
 <template>
   <!-- 2. 拿到传入组件的数据后，接下来对数据进行渲染
 通过ref拿到当前form的实例；model中将传入的form数据给它，与element-ui的form进行双向绑定；

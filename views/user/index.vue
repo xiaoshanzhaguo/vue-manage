@@ -31,7 +31,9 @@
         ref="form"
       >
         <!-- 5. button按钮放在slot区域 -->
-        <el-button type="primary" @click="getList">搜索</el-button>
+        <el-button type="primary" @click="getList(searchForm.keyword)"
+          >搜索</el-button
+        >
       </common-form>
     </div>
 
@@ -165,7 +167,7 @@ export default {
           console.log(res);
           // 调用.then，拿到接口返回的数据，接下来将弹窗关闭，并将table表格数据更新
           this.isShow = false;
-          this.getList()
+          this.getList();
         });
       } else {
         // 新增逻辑
@@ -177,7 +179,7 @@ export default {
           然后就可以打开页面查看了。老师测试后发现报404的错误，因为请求没有被拦截到。因为mock.js里的地址多写了一个api]
           修改后可以看到接口已经被拦截，并且这里打印了接口的数据，数据里返回的就是createUser的响应地址。 */
 
-          this.getList()
+          this.getList();
         });
       }
     },
@@ -194,37 +196,41 @@ export default {
         sex: "",
       };
     },
-    editUser() {
-      this.operateType = 'edit'
-      this.isShow = true
-      this.operateForm = this.row // 赋值当前的数据，实现回显当前的数据。operateForm的数据还会传到CommonForm的组件中
+    editUser(row) {
+      // console.log(row);
+      this.operateType = "edit";
+      this.isShow = true;
+      this.operateForm = row; // 赋值当前的数据，实现回显当前的数据。operateForm的数据还会传到CommonForm的组件中
+      this.getList();
     },
     delUser(row) {
       this.$confirm("此操作将永久删除该文件，是否继续？", "提示", {
         // 第三个参数是相关配置。文案进行自定义。
         confirmButtonText: "确认",
         cancelButtonText: "取消",
-        type: "warning" // 当前弹窗类型
+        type: "warning", // 当前弹窗类型
       }).then(() => {
         // 点击确认时会触发一个回调
-        const id = row.id
-        this.$http.get("/user/del", {
-          params: { id }  // 当前数据的id
-        }).then(() => {
-          // 接口请求完成之后，拿到接口返回的数据，给它一个message的提示
-          this.$message({
-            type: 'success',
-            message: '删除成功' // 文案
+        const id = row.id;
+        this.$http
+          .get("/user/del", {
+            params: { id }, // 当前数据的id
           })
-          // 将列表数据进行刷新
-          this.getList()
-          // 然后定义/user/del的API，一样去mock.js中定义拦截器
-        })
-      })
+          .then(() => {
+            // 接口请求完成之后，拿到接口返回的数据，给它一个message的提示
+            this.$message({
+              type: "success",
+              message: "删除成功", // 文案
+            });
+            // 将列表数据进行刷新
+            this.getList();
+            // 然后定义/user/del的API，一样去mock.js中定义拦截器
+          });
+      });
     },
     // 调用方法，传入name并给一个默认值
     getList(name = "") {
-      this.config.loading = true; // 获取数据倩需要给一个loading
+      this.config.loading = true; // 获取数据前需要给一个loading
       name ? (this.config.page = 1) : ""; // 判断传入的name存在否？如果它存在则进行搜索，将当前页数置为1(因为搜索一般从第一页开始)
       getUser({
         page: this.config.page,
@@ -238,17 +244,16 @@ export default {
           return item;
         });
         // 处理分页数据
-        this.config.total = res.data.count
-        this.config.loading = false
+        this.config.total = res.count;
+        this.config.loading = false;
         /* 然后对getList进行一个调用，应该在页面加载时就调用，应该写在生命周期里。
         同时在编辑和新增数据后，还需要调用，重新获取列表的数据，将列表进行重置。 */
-
       });
     },
   },
   created() {
-    this.getList()  
-  }
+    this.getList();
+  },
 };
 </script>
 

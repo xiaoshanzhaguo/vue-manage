@@ -20,8 +20,14 @@
       </el-table-column>
       <!-- 当前的操作列 -->
       <el-table-column label="操作" min-width="180">
-        <el-button size="mini" @click="handleEdit">编辑</el-button>
-        <el-button size="mini" type="danger" @click="handleDelete">删除</el-button>
+        <template slot-scope="scope">
+          <el-button size="mini" @click="handleEdit(scope.row)"
+          >编辑</el-button
+        >
+        <el-button size="mini" type="danger" @click="handleDelete(scope.row)"
+          >删除</el-button
+        >
+        </template>
       </el-table-column>
     </el-table>
 
@@ -42,27 +48,28 @@
 export default {
   name: "CommonTable",
   props: {
-    tableData: Array,  // table数据
-    tableLabel: Array,  // table列的数据
-    config: Object
+    tableData: Array, // table数据
+    tableLabel: Array, // table列的数据
+    config: Object,
   },
   data() {
     return {
-      localConfig: this.config
+      localConfig: this.config,
     };
   },
   methods: {
     handleEdit(row) {
-      // 通知父组件我们已经触发了事件，并且将数据传递到父组件中
-      this.$emit('edit', row)
+      // 通过emit事件，向上抛出，通知父组件此时我们已经触发了对应的事件，并且将对应事件的数据传递到父组件中
+      this.$emit("edit", row);
+      // console.log(row);
     },
     handleDelete(row) {
-      this.$emit('del', row)
+      this.$emit("del", row);
     },
     changePage(page) {
-      this.$emit('changePage', page)
-    }
-  }
+      this.$emit("changePage", page);
+    },
+  },
 };
 </script>
 

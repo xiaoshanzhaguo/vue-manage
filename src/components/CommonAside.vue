@@ -9,18 +9,18 @@
     @close="handleClose"
     :collapse="isCollapse"
   >
-    <h3>{{isCollapse ? '后台' : '通用后台管理系统'}}</h3>
+    <h3>{{ isCollapse ? "后台" : "通用后台管理系统" }}</h3>
     <el-menu-item
       @click="clickMenu(item)"
       v-for="item in noChildren"
-      :index="item.path"
-      :key="item.path"
+      :index="item.path + ''"
+      :key="item.path + ''"
     >
       <i :class="'el-icon-' + item.icon"></i>
       <span slot="title">{{ item.label }}</span>
     </el-menu-item>
-    <el-submenu v-for="item in hasChildren" :index="item.path" :key="item.path">
-      <template slot="title">
+    <el-submenu v-for="item in hasChildren" :index="item.path + ''" :key="item.path + ''">
+      <template slot="title">    
         <i :class="'el-icon-' + item.icon"></i>
         <span slot="title">{{ item.label }}</span>
       </template>
@@ -28,7 +28,9 @@
         v-for="(subItem, subIndex) in item.children"
         :key="subItem.path"
       >
-        <el-menu-item @click="clickMenu(subItem)" :index="subIndex">{{ subItem.label }}</el-menu-item>
+        <el-menu-item @click="clickMenu(subItem)" :key="subIndex">{{
+          subItem.label
+        }}</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
   </el-menu>
@@ -112,10 +114,10 @@ export default {
       /* 拿到后需要进行跳转，这里由于我们事先在router的index.js里面使用use进行了全局引入，
       所以这里可以直接使用函数式编程。使用push方法实现页面的跳转，可以用name控制跳转。 */
       this.$router.push({
-        name: item.name,  // 只写了这个不能跳转，因为路由里没定义。
+        name: item.name, // 只写了这个不能跳转，因为路由里没定义。
       });
-      this.$store.commit('selectMenu', item)
-    }
+      this.$store.commit("selectMenu", item);
+    },
   },
   computed: {
     noChildren() {
@@ -127,8 +129,8 @@ export default {
       return this.menu.filter((item) => item.children);
     },
     isCollapse() {
-      return this.$store.state.tab.isCollapse
-    }
-  }
+      return this.$store.state.tab.isCollapse;
+    },
+  },
 };
 </script>
