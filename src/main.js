@@ -90,6 +90,8 @@ router.beforeEach((to, from, next) => {
   // 拿到token后进行判断。如果token不存在并且它不是登录页，就不能让它登录系统
   if (!token && to.name !== 'login') {
     next({ name: 'login' })
+  } else if (token && to.name === 'login') {
+    next({ name: 'home' }) // 重定向到首页
   } else {
     // 登录成功的情况，就让它继续往下走
     next()
@@ -100,4 +102,8 @@ new Vue({
   store,
   router,
   render: h => h(App),
+  created() {
+    // 通过store调用addMenu这个mutation，然后将router实例传进去
+    store.commit('addMenu', router)
+  }
 }).$mount('#app')
