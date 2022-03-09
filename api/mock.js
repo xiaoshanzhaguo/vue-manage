@@ -13,4 +13,4 @@ Mock.mock(/user\/edit/, 'post', userApi.updateUser)
 Mock.mock(/user\/getUser/, 'get', userApi.getUserList)
 Mock.mock(/user\/del/, 'get', userApi.deleteUser)
 
-Mock.mock(/permisssion\/getMenu/, 'post', permisssion.getMenu)
+Mock.mock(/permission\/getMenu/, 'post', permisssion.getMenu)

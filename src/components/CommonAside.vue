@@ -58,47 +58,7 @@ export default {
   data() {
     return {
       menu: [
-        {
-          path: "/",
-          name: "home",
-          label: "首页",
-          icon: "s-home",
-          url: "Home/Home",
-        },
-        {
-          path: "/mall",
-          name: "mall",
-          label: "商品管理",
-          icon: "video-play",
-          url: "MallManage/MallManage",
-        },
-        {
-          path: "/user",
-          name: "user",
-          label: "用户管理",
-          icon: "user",
-          url: "UserManage/UserManage",
-        },
-        {
-          label: "其他",
-          icon: "location",
-          children: [
-            {
-              path: "/page1",
-              name: "page1",
-              label: "页面1",
-              icon: "setting",
-              url: "Other/PageOne",
-            },
-            {
-              path: "/page2",
-              name: "page2",
-              label: "页面2",
-              icon: "setting",
-              url: "Other/PageTwo",
-            },
-          ],
-        },
+        // 需要拿到store中的menu数据
       ],
     };
   },
@@ -122,15 +82,20 @@ export default {
   computed: {
     noChildren() {
       // 在定义的时候，需要对数据源进行一个过滤。
-      return this.menu.filter((item) => !item.children);
+      return this.asyncMenu.filter((item) => !item.children);
       // 这里判断它当前有没有子项目，如果它没有子项目，我们直接拿到item下面的children，然后进行返回
     },
     hasChildren() {
-      return this.menu.filter((item) => item.children);
+      return this.asyncMenu.filter((item) => item.children);
     },
     isCollapse() {
       return this.$store.state.tab.isCollapse;
     },
+    asyncMenu() {
+      // 直接获取当前的menu
+      return this.$store.state.tab.menu
+      // 上面与menu相关的逻辑都可以替换成asyncMenu。并且将router/index.js里的路由删除一部分，只需要保存layout
+    }
   },
 };
 </script>
